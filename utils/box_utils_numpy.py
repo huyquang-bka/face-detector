@@ -22,7 +22,8 @@ def convert_locations_to_boxes(locations, priors, center_variance,
     if len(priors.shape) + 1 == len(locations.shape):
         priors = np.expand_dims(priors, 0)
     return np.concatenate([
-        locations[..., :2] * center_variance * priors[..., 2:] + priors[..., :2],
+        locations[..., :2] * center_variance *
+        priors[..., 2:] + priors[..., :2],
         np.exp(locations[..., 2:] * size_variance) * priors[..., 2:]
     ], axis=len(locations.shape) - 1)
 
@@ -32,8 +33,10 @@ def convert_boxes_to_locations(center_form_boxes, center_form_priors, center_var
     if len(center_form_priors.shape) + 1 == len(center_form_boxes.shape):
         center_form_priors = np.expand_dims(center_form_priors, 0)
     return np.concatenate([
-        (center_form_boxes[..., :2] - center_form_priors[..., :2]) / center_form_priors[..., 2:] / center_variance,
-        np.log(center_form_boxes[..., 2:] / center_form_priors[..., 2:]) / size_variance
+        (center_form_boxes[..., :2] - center_form_priors[...,
+         :2]) / center_form_priors[..., 2:] / center_variance,
+        np.log(center_form_boxes[..., 2:] /
+               center_form_priors[..., 2:]) / size_variance
     ], axis=len(center_form_boxes.shape) - 1)
 
 

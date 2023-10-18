@@ -77,7 +77,8 @@ class FaceDetector:
 
 
 if __name__ == "__main__":
-    face_detector = FaceDetector(model_path="models/onnx/version-RFB-320.onnx")
+    face_detector = FaceDetector(
+        model_path="resources/weights/onnx/version-RFB-320.onnx")
     face_detector.load_model()
 
     path = 0
